@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dish Details</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .dish-details { max-width: 600px; margin: auto; text-align: center; }
+    img { width: 100%; height: 300px; object-fit: cover; }
+  </style>
+</head>
+<body>
+  <h1>Dish Details</h1>
+  <div id="dishDetails" class="dish-details"></div>
+  <button onclick="goBack()">Back</button>
+
+  <script>
+    const BASE_URL = 'http://localhost:5000/api';
+
+    async function fetchDishDetails() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const slug = urlParams.get('slug');
+console.log(slug)
+if (!slug) {
+    document.getElementById('dishDetails').innerHTML = "<p>Invalid dish!</p>";
+    return;
+}
+
+try {
+    const response = await fetch(`${BASE_URL}/dishes/${slug}`);
+    const dish = await response.json();
+    console.log(dish)
+
+        document.getElementById('dishDetails').innerHTML = `
+          <img src="${dish.imageUrl}" alt="${dish.title}">
+          <h2>${dish.title}</h2>
+          <p>${dish.description}</p>
+        `;
+      } catch (error) {
+        document.getElementById('dishDetails').innerHTML = "<p>Dish not found!</p>";
+      }
+    }
+
+    function goBack() {
+      window.history.back();
+    }
+
+    fetchDishDetails();
+  </script>
+</body>
+</html>
