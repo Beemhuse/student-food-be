@@ -4,10 +4,10 @@ import bcrypt from 'bcrypt';
 
 export const signup = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const {name, email, password } = req.body;
 
     // Check if user already exists
-    const query = `*[_type == "user" && email == $email][0]`;
+    const query = `*[_type == "customer" && email == $email][0]`;
     const existingUser = await client.fetch(query, { email });
 
     if (existingUser) {
@@ -19,7 +19,8 @@ export const signup = async (req, res) => {
 
     // Create user in Sanity
     const newUser = {
-      _type: 'user',
+      _type: 'customer',
+      name,
       email,
       password: hashedPassword
     };

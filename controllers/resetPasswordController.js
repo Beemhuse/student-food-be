@@ -22,7 +22,7 @@ export const resetPassword = async (req, res) => {
 
     // Find user by ID from token
     const userId = payload.userId;
-    const query = `*[_type == "user" && _id == $userId][0]`;
+    const query = `*[_type == "customer" && _id == $userId][0]`;
     const user = await client.fetch(query, { userId });
 
     if (!user) {

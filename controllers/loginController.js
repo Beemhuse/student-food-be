@@ -8,7 +8,7 @@ export const login = async (req, res) => {
     const { email, password } = req.body;
 
     // Fetch user from Sanity
-    const query = `*[_type == "user" && email == $email][0]`;
+    const query = `*[_type == "customer" && email == $email][0]`;
     const user = await client.fetch(query, { email });
 
     if (!user) {

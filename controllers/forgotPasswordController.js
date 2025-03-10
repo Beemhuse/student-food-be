@@ -8,7 +8,7 @@ export const forgotPassword = async (req, res) => {
     const { email } = req.body;
 
     // Check if user exists
-    const query = `*[_type == "user" && email == $email][0]`;
+    const query = `*[_type == "customer" && email == $email][0]`;
     const user = await client.fetch(query, { email });
 
     if (!user) {
