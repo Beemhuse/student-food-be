@@ -16,7 +16,6 @@ export const forgotPassword = async (req, res) => {
     // Create a 6-digit OTP code
     const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
 
-    // Store OTP and its expiry (15 minutes from now) on the user document
     await client.patch(user._id)
       .set({
         otp: otpCode,

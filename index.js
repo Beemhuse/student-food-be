@@ -11,7 +11,7 @@ import loginRoutes from './routes/auth/login.js';
 import forgotPasswordRoutes from './routes/auth/forgotPassword.js';
 import passwordResetRoutes from './routes/auth/resetPassword.js';
 import signupRoutes from './routes/auth/signup.js';
-// import userRoutes from './routes/user.js';
+import categoryRoutes from './routes/category.js';
 import contactRoutes from './routes/contact.js';
 
 dotenv.config(); // Load environment variables
@@ -28,7 +28,7 @@ app.use(express.json());
 app.use('/api/contact', contactRoutes);
 app.use('/api/dishes', dishesRoutes);
 app.use('/api/login', loginRoutes);
-// app.use('/api/order', orderRoutes);
+app.use('/api/category', categoryRoutes);
 app.use('/api/forgot-password', forgotPasswordRoutes);
 app.use('/api/password-reset', passwordResetRoutes);
 app.use('/api/signup', signupRoutes);
