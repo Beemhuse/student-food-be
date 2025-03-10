@@ -1,5 +1,3 @@
-// /src/controllers/forgotPasswordController.js
-import jwt from 'jsonwebtoken';
 import { transporter } from '../config/emailService.js';
 import { client } from '../config/sanityClient.js';
 
@@ -15,31 +13,38 @@ export const forgotPassword = async (req, res) => {
       return res.status(404).json({ message: 'No user found with that email' });
     }
 
-    // Create a reset token (JWT) that expires soon
-    const resetToken = jwt.sign(
-      { userId: user._id },
-      process.env.JWT_SECRET,
-      { expiresIn: '15m' } // 15 minutes or whatever you prefer
-    );
+    // Create a 6-digit OTP code
+    const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
 
-    // Optionally store the token in the user doc or a separate "resetToken" doc
-    // For demonstration, we’ll skip storing it in Sanity and just rely on the JWT itself.
-    // If you want to store, you'd do something like:
-    // await client.patch(user._id).set({ resetToken }).commit();
+    // Store OTP and its expiry (15 minutes from now) on the user document
+    await client.patch(user._id)
+      .set({
+        otp: otpCode,
+        otpExpiry: new Date(Date.now() + 15 * 60 * 1000).toISOString()
+      })
+      .commit();
 
-    // Send email with reset link
-    const resetLink = `http://localhost:3000/api/reset-password?token=${resetToken}`;
-
-    await transporter.sendMail({
+    // Define mail options for sending the OTP code
+    const mailOptions = {
       from: process.env.EMAIL_USER,
       to: email,
-      subject: 'Password Reset',
-      text: `Click here to reset your password: ${resetLink}`,
-      html: `<p>Click <a href="${resetLink}">here</a> to reset your password.</p>`
-    });
+      subject: 'Password Reset OTP',
+      text: `Your OTP code is: ${otpCode}. It will expire in 15 minutes.`,
+      html: `<p>Your OTP code is: <strong>${otpCode}</strong></p><p>This code will expire in 15 minutes.</p>`
+    };
 
-    return res.status(200).json({ message: 'Password reset link sent' });
+    // Send the email with the OTP code
+    await transporter.sendMail(mailOptions);
+
+    return res.status(200).json({ message: 'Password reset OTP sent' });
   } catch (error) {
-    return res.status(500).json({ message: 'Forgot password failed', error });
+    console.error('Forgot password error:', error);
+    if (error.code === 'EAUTH') {
+      return res.status(500).json({
+        message: 'Email authentication failed. Please check your email service configuration.',
+        error: error.message
+      });
+    }
+    return res.status(500).json({ message: 'Forgot password failed', error: error.message });
   }
 };
