@@ -72,13 +72,13 @@ const swaggerOptions = {
   swaggerDefinition: {
     openapi: "3.0.0",
     info: {
-      title: "My Express API",
+      title: "Euodia API",
       version: "1.0.0",
-      description: "API documentation for my Express application",
+      description: "API documentation for euodia application",
     },
     servers: [
       {
-        url: `http://localhost:${PORT}`,
+        url: `https://student-food-be.onrender.com/`,
         description: "Development server",
       },
     ],
