@@ -7,6 +7,7 @@ import cors from "cors";
 // import adminRoutes from './routes/admin';
 import dishesRoutes from './routes/dishes.js';
 import loginRoutes from './routes/auth/login.js';
+import verifyOtpRoute from './routes/auth/verifyOtp.js';
 // import orderRoutes from './routes/order.js';
 import forgotPasswordRoutes from './routes/auth/forgotPassword.js';
 import passwordResetRoutes from './routes/auth/resetPassword.js';
@@ -30,6 +31,7 @@ app.use('/api/dishes', dishesRoutes);
 app.use('/api/login', loginRoutes);
 app.use('/api/category', categoryRoutes);
 app.use('/api/forgot-password', forgotPasswordRoutes);
+app.use('/api/verify-otp', verifyOtpRoute);
 app.use('/api/password-reset', passwordResetRoutes);
 app.use('/api/signup', signupRoutes);
 
