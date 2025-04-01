@@ -31,15 +31,33 @@ export const getAllDishes = async (req, res) => {
 
 export const createDish = async (req, res) => {
   try {
+    const { title, description, price, category, status, sortOrder, image } = req.body;
+
+    // Validation: Ensure required fields are provided
+    if (!title || !description || !price || !category || !image) {
+      return res.status(400).json({ message: 'Missing required fields' });
+    }
+
+    // Create new dish
     const newDish = {
       _type: 'dish',
-      name: req.body.name,
-      price: req.body.price,
-      // add other fields as needed
+      title,
+      description,
+      price: Number(price),
+      category: { _type: 'reference', _ref: category },
+      status: status ?? true, // Default status to true
+      sortOrder: sortOrder ?? 1, // Default sortOrder to 1
+      image: { asset: { _ref: image } }, // Image should be a valid Sanity asset reference
     };
+
     const createdDish = await client.create(newDish);
-    return res.status(201).json(createdDish);
+    
+    return res.status(201).json({
+      message: 'Dish created successfully',
+      dish: createdDish,
+    });
   } catch (error) {
+    console.error("Error creating dish:", error);
     return res.status(500).json({ message: 'Failed to create dish', error });
   }
 };

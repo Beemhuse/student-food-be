@@ -1,4 +1,3 @@
-// /src/config/sanityClient.js
 import { createClient } from '@sanity/client';
 import dotenv from 'dotenv';
 
