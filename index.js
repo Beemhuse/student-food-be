@@ -58,6 +58,7 @@ import passwordResetRoutes from './routes/auth/resetPassword.js';
 import signupRoutes from './routes/auth/signup.js';
 import categoryRoutes from './routes/category.js';
 import contactRoutes from './routes/contact.js';
+import checkoutRoutes from './routes/checkout.js';
 
 dotenv.config(); // Load environment variables
 
@@ -100,6 +101,7 @@ app.use('/api/forgot-password', forgotPasswordRoutes);
 app.use('/api/verify-otp', verifyOtpRoute);
 app.use('/api/password-reset', passwordResetRoutes);
 app.use('/api/signup', signupRoutes);
+app.use('/api/checkout', checkoutRoutes);
 
 // Start Server
 app.listen(PORT, () => {
