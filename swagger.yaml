@@ -1,0 +1,20 @@
+components:
+  schemas:
+    Category:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: The ID of the category
+        title:
+          type: string
+          description: The title of the category
+        description:
+          type: string
+          description: The description of the category
+        slug:
+          type: object
+          properties:
+            current:
+              type: string
+              description: The current slug of the category
