@@ -69,6 +69,8 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(express.json());
+
+
 const swaggerOptions = {
   definition: {
     openapi: "3.0.0",
@@ -107,10 +109,11 @@ const swaggerOptions = {
             },
             category: {
               type: "string",
+              description: "Category ID the dish belongs to",
             },
             image: {
               type: "string",
-             
+              description: "Image URL of the dish",
             },
             status: {
               type: "boolean",
@@ -122,11 +125,41 @@ const swaggerOptions = {
             },
           },
         },
+        Category: {
+          type: "object",
+          required: ["title", "slug"],
+          properties: {
+            _id: {
+              type: "string",
+              description: "Auto-generated ID of the category",
+            },
+            title: {
+              type: "string",
+              description: "The name of the category",
+            },
+            slug: {
+              type: "object",
+              properties: {
+                current: {
+                  type: "string",
+                  description: "URL-friendly slug generated from the title",
+                },
+              },
+            },
+            description: {
+              type: "string",
+              description: "A brief description of the category",
+            },
+          },
+        },
       },
     },
   },
-  apis: ['./routes/**/*.js', './src/index.js'],
+  apis: ["./routes/**/*.js", "./src/index.js"],
 };
+
+export default swaggerOptions;
+
 
 
 // const swaggerOptions = {
