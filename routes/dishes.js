@@ -1,6 +1,6 @@
 // /src/routes/dishes.js
 import { Router } from "express";
-import { getAllDishes, createDish, getDishBySlug } from "../controllers/dishesController.js";
+import { getAllDishes, createDish, getDishBySlug, deleteDish, updateDish } from "../controllers/dishesController.js";
 
 const router = Router();
 
@@ -84,4 +84,68 @@ router.post("/", createDish); // POST /api/dishes
  */
 router.get("/:slug", getDishBySlug); // GET /api/dishes/:slug
 
+/**
+ * @swagger
+ * /api/dishes/{dishId}:
+ *   patch:
+ *     summary: Update a dish by ID
+ *     tags: [Dishes]
+ *     parameters:
+ *       - in: path
+ *         name: dishId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID of the dish to update
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *               description:
+ *                 type: string
+ *               price:
+ *                 type: number
+ *               category:
+ *                 type: string
+ *               status:
+ *                 type: boolean
+ *               sortOrder:
+ *                 type: number
+ *               image:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Dish updated successfully
+ *       400:
+ *         description: Invalid request body
+ *       500:
+ *         description: Failed to update dish
+ */
+router.patch("/:dishId", updateDish);
+
+/**
+ * @swagger
+ * /api/dishes/{dishId}:
+ *   delete:
+ *     summary: Delete a dish by ID
+ *     tags: [Dishes]
+ *     parameters:
+ *       - in: path
+ *         name: dishId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID of the dish to delete
+ *     responses:
+ *       200:
+ *         description: Dish deleted successfully
+ *       500:
+ *         description: Failed to delete dish
+ */
+router.delete("/:dishId", deleteDish);
 export default router;

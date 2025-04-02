@@ -99,3 +99,43 @@ export const getDishBySlug = async (req, res) => {
     }
   };
   
+
+  // Update dish by ID
+export const updateDish = async (req, res) => {
+  try {
+    const { dishId } = req.params;
+    const { title, description, price, category, status, sortOrder, image } = req.body;
+
+    const updates = {};
+
+    if (title) updates.title = title;
+    if (description) updates.description = description;
+    if (price) updates.price = Number(price);
+    if (category) updates.category = { _type: "reference", _ref: category };
+    if (status !== undefined) updates.status = status;
+    if (sortOrder !== undefined) updates.sortOrder = sortOrder;
+    if (image) updates.image = { asset: { _ref: image } };
+
+    const updatedDish = await client.patch(dishId).set(updates).commit();
+
+    return res.status(200).json({
+      message: "Dish updated successfully",
+      dish: updatedDish,
+    });
+  } catch (error) {
+    return res.status(500).json({ message: "Failed to update dish", error });
+  }
+};
+
+// Delete dish by ID
+export const deleteDish = async (req, res) => {
+  try {
+    const { dishId } = req.params;
+
+    await client.delete(dishId);
+
+    return res.status(200).json({ message: "Dish deleted successfully" });
+  } catch (error) {
+    return res.status(500).json({ message: "Failed to delete dish", error });
+  }
+};
