@@ -102,6 +102,6 @@ const router = express.Router();
  *         description: Internal server error.
  */
 
-router.post("/checkout", checkout);
+router.post("/", checkout);
 
 export default router;
