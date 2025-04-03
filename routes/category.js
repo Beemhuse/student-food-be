@@ -12,7 +12,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /api/categories:
+ * /api/category:
  *   get:
  *     summary: Get all categories
  *     tags: [Categories]
@@ -28,11 +28,11 @@ const router = express.Router();
  *       500:
  *         description: Internal server error
  */
-router.get("/categories", getAllCategories);  // GET all categories
+router.get("/", getAllCategories);  // GET all categories
 
 /**
  * @swagger
- * /api/categories:
+ * /api/category:
  *   post:
  *     summary: Create a new category
  *     tags: [Categories]
@@ -61,11 +61,11 @@ router.get("/categories", getAllCategories);  // GET all categories
  *       500:
  *         description: Internal server error
  */
-router.post("/categories", createCategory);  // POST new category
+router.post("/", createCategory);  // POST new category
 
 /**
  * @swagger
- * /api/categories/{categoryId}:
+ * /api/category/{categoryId}:
  *   patch:
  *     summary: Update an existing category by ID
  *     tags: [Categories]
@@ -103,11 +103,11 @@ router.post("/categories", createCategory);  // POST new category
  *       500:
  *         description: Internal server error
  */
-router.patch("/categories/:categoryId", updateCategory);  // PATCH update category by ID
+router.patch(":categoryId", updateCategory);  // PATCH update category by ID
 
 /**
  * @swagger
- * /api/categories/{categoryId}:
+ * /api/category/{categoryId}:
  *   delete:
  *     summary: Delete a category by ID
  *     tags: [Categories]
@@ -126,6 +126,6 @@ router.patch("/categories/:categoryId", updateCategory);  // PATCH update catego
  *       500:
  *         description: Internal server error
  */
-router.delete("/categories/:categoryId", deleteCategory);  // DELETE category by ID
+router.delete(":categoryId", deleteCategory);  // DELETE category by ID
 
 export default router;
