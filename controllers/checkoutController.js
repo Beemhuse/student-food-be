@@ -1,16 +1,16 @@
 // import { initializePaystack } from "@/utils/lib/paystack";
 // import { createOrder, createTransaction } from "@/utils/sanity/client";
 // import { updateTransaction, updateUserAfterOrder } from "@/utils/sanity/updateUserAfterOrder";
-import { initializePaystack, createTransaction, createOrder } from "../lib/index.js";
+import { initializePaystack, createTransaction, createOrder, updateTransaction } from "../lib/index.js";
 import { v4 as uuidv4 } from "uuid";
 
 export const checkout = async (req, res) => {
   try {
-    const { cartItems, amount, fullName, email, serviceFee, phoneNumber, streetAddress, orderNotes, apartment, townCity, deliveryAddress, userId } = req.body;
+    const { cartItems, amount, fullName, email, serviceFee, phoneNumber, streetAddress, orderNotes, apartment, townCity, userId } = req.body;
 
-    if (!userId) {
-      return res.status(401).json({ error: "User is not authenticated" });
-    }
+    // if (!userId) {
+    //   return res.status(401).json({ error: "User is not authenticated" });
+    // }
 
     // Format email
     const formattedEmail = email.toLowerCase();
