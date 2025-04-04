@@ -60,6 +60,7 @@ import categoryRoutes from './routes/category.js';
 import contactRoutes from './routes/contact.js';
 import checkoutRoutes from './routes/checkout.js';
 import uploadImageRoutes from './routes/upload-image.js';
+import serviceFeeRoutes from './routes/service-fee.js';
 
 dotenv.config(); // Load environment variables
 
@@ -152,6 +153,24 @@ const swaggerOptions = {
             },
           },
         },
+        Service: {
+          type: "object",
+          required: ["location", "fee"],
+          properties: {
+            _id: {
+              type: "string",
+              description: "Auto-generated ID of the category",
+            },
+            location: {
+              type: "string",
+              description: "The name of the category",
+            },
+            fee: {
+              type: "number",
+              description: "The service fee amount",
+            },
+          },
+        },
       },
     },
   },
@@ -196,6 +215,7 @@ app.use('/api/password-reset', passwordResetRoutes);
 app.use('/api/signup', signupRoutes);
 app.use('/api/checkout', checkoutRoutes);
 app.use('/api/upload-image', uploadImageRoutes);
+app.use('/api/service-fee', uploadImageRoutes);
 
 // Start Server
 app.listen(PORT, () => {
