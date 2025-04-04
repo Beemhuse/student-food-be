@@ -215,7 +215,7 @@ app.use('/api/password-reset', passwordResetRoutes);
 app.use('/api/signup', signupRoutes);
 app.use('/api/checkout', checkoutRoutes);
 app.use('/api/upload-image', uploadImageRoutes);
-app.use('/api/service-fee', uploadImageRoutes);
+app.use('/api/service-fee', serviceFeeRoutes);
 
 // Start Server
 app.listen(PORT, () => {
