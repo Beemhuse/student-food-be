@@ -103,7 +103,7 @@ router.post("/", createCategory);  // POST new category
  *       500:
  *         description: Internal server error
  */
-router.patch(":categoryId", updateCategory);  // PATCH update category by ID
+router.patch("/:categoryId", updateCategory);  // PATCH update category by ID
 
 /**
  * @swagger
@@ -126,6 +126,6 @@ router.patch(":categoryId", updateCategory);  // PATCH update category by ID
  *       500:
  *         description: Internal server error
  */
-router.delete(":categoryId", deleteCategory);  // DELETE category by ID
+router.delete("/:categoryId", deleteCategory);  // DELETE category by ID
 
 export default router;

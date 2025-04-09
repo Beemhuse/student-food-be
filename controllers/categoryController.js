@@ -34,6 +34,7 @@ export const createCategory = async (req, res) => {
       title,
       slug: { current: slug }, // Sanity requires slug as an object
       description: description || "",
+      active: true
     };
 
     const createdCategory = await client.create(newCategory);
@@ -84,7 +85,7 @@ export const updateCategory = async (req, res) => {
 export const deleteCategory = async (req, res) => {
   try {
     const { categoryId } = req.params; // Get categoryId from the URL
-
+// console.log(categoryId, "cat id")
     if (!categoryId) {
       return res.status(400).json({ message: "Category ID is required" });
     }
